@@ -30,6 +30,18 @@ const groupRouter = require("./router/groupRouter");
 const User = require("./models/userModel");
 const Chat = require("./models/chatModel");
 const Group = require("./models/groupModel");
+const UserGroup = require("./models/userGroup");
+
+Chat.belongsTo(User);
+Chat.belongsTo(Group);
+
+User.hasMany(UserGroup);
+
+Group.hasMany(Chat);
+Group.hasMany(UserGroup);
+
+UserGroup.belongsTo(User);
+UserGroup.belongsTo(Group);
 
 
 app.use("/", userRouter);
@@ -38,7 +50,7 @@ app.use("/user", userRouter);
 app.use("/homePage", homePageRouter);
 
 app.use("/chat", chatRouter);
-
+app.use("/group", groupRouter);
 
 
 sequelize
